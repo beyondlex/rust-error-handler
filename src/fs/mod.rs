@@ -1,4 +1,6 @@
-
+use std::fmt::{Display, Formatter};
+use derive_more::From;
+use crate::error;
 
 pub fn list_files(path: &str) -> crate::Result<Vec<String>> {
     let files: Vec<String> = std::fs::read_dir(path)?
@@ -8,7 +10,19 @@ pub fn list_files(path: &str) -> crate::Result<Vec<String>> {
         .collect()
         ;
     if files.is_empty() {
-        return Err("No files found".into());
+        return Err(error::Error::Fs(Error::SillyOneCantListEmptyFolder));
     }
     Ok(files)
 }
+
+#[derive(Debug, From)]
+pub enum Error {
+    SillyOneCantListEmptyFolder
+}
+
+impl Display for Error {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{self:?}")
+    }
+}
+impl std::error::Error for Error {}

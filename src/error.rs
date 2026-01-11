@@ -1,26 +1,17 @@
 use std::fmt::{Display, Formatter};
 use derive_more::From;
+use crate::fs;
 
 pub type Result<T> = core::result::Result<T, Error>;
 #[derive(Debug, From)]
 pub enum Error {
-    #[from]
-    Custom(String),
+
+    // -- fs
+    #[from] // todo: what is this
+    Fs(fs::Error),
 
     #[from]
     Io(std::io::Error)
-}
-
-impl Error {
-    pub fn custom(msg: impl Display) -> Self {
-        Self::Custom(msg.to_string())
-    }
-}
-
-impl From<&str> for Error {
-    fn from(value: &str) -> Self {
-        Self::Custom(value.to_string())
-    }
 }
 
 impl Display for Error {
