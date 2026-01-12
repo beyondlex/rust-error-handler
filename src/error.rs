@@ -7,7 +7,7 @@ pub type Result<T> = core::result::Result<T, Error>;
 pub enum Error {
 
     // -- fs
-    #[from] // todo: what is this
+    #[from]
     Fs(fs::Error),
 
     #[from]
