@@ -7,7 +7,7 @@ pub use error::{Error, Result};
 use crate::fs::list_files;
 
 fn main() -> Result<()>{
-    let files = list_files(".")?;
+    let files = list_files("./empty")?;
     println!("{files:#?}");
     Ok(())
 }

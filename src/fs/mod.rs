@@ -1,5 +1,5 @@
-use std::fmt::{Display, Formatter};
-use derive_more::From;
+// use std::fmt::{Display, Formatter};
+use derive_more::{Display, Error, From};
 use crate::error;
 
 pub fn list_files(path: &str) -> crate::Result<Vec<String>> {
@@ -15,14 +15,14 @@ pub fn list_files(path: &str) -> crate::Result<Vec<String>> {
     Ok(files)
 }
 
-#[derive(Debug, From)]
+#[derive(Debug, From, Display, Error)]
 pub enum Error {
     SillyOneCantListEmptyFolder
 }
 
-impl Display for Error {
-    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{self:?}")
-    }
-}
-impl std::error::Error for Error {}
+// impl Display for Error {
+//     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+//         write!(f, "{self:?}")
+//     }
+// }
+// impl std::error::Error for Error {}
